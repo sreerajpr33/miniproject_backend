@@ -43,7 +43,23 @@ while True:
                 i[5]=w_no
         if f==0:
             print('invalid id')
-        
+
+    elif choice==4:
+            w_id=int(input("enetr the ID :"))
+            f=0
+            for i in worker:
+                if w_id==i[0]:
+                    f=1
+                    worker.remove(i)
+                    print("deleted sucessfully")
+                    break
+            if f==0:
+                print('invalid ID')
+    elif choice==5:
+        print("exited")
+        break
+
+
             
             
 
