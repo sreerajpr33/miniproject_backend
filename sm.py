@@ -1,4 +1,4 @@
-product=[[123,'apple',20],[234,'orange',25]]
+product=[]
 while True:
     print('1.add product\n2.viewproduct\n3.updateproduct\n4.delectproduct\n5.exit')
     choice=int(input('enter your choice :'))
@@ -10,7 +10,13 @@ while True:
         p_name=input('enter product name :')
         p_price=int(input('enter the price of product :'))
         product.append([p_id,p_name,p_price])
+        # product.append({'ID':p_id,'product_name':p_name,'price':p_price})
+        # print("{:<10}{:<10}{:<6}".format("name","age","place"))
+        # print('_'*30)
+        # for i in product:
+        #     print("{:<10}{:<10}{:<6}".format(i['ID'],i['product_name'],i['price']))
         print()
+    # pass
 
     elif choice==2:
         for i in product:
@@ -47,7 +53,10 @@ while True:
     elif choice==5:
         print('you have exited')
         break
-
+    else:
+        print()
+        print('invallid choice' )
+        print()
                 
 
 
