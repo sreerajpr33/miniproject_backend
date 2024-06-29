@@ -11,10 +11,10 @@ while True:
         p_price=int(input('enter the price of product :'))
         product.append([p_id,p_name,p_price])
         # product.append({'ID':p_id,'product_name':p_name,'price':p_price})
-        # print("{:<10}{:<10}{:<6}".format("name","age","place"))
+        # print("{:<10}{:<15}{:<6}".format("ID","product_name","price"))
         # print('_'*30)
         # for i in product:
-        #     print("{:<10}{:<10}{:<6}".format(i['ID'],i['product_name'],i['price']))
+        #     print("{:<10}{:<15}{:<6}".format(i['ID'],i['product_name'],i['price']))
         print()
     # pass
 
