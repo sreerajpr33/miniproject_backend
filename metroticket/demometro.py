@@ -10,7 +10,7 @@ if entry_station in stations and exit_station in stations:
 
     distance = exit_station - entry_station
     if distance < 0:
-        distance = -distance
+        distance = -1*distance
 
     price = distance * tickets * 10
     print('Total price:',price,'RS')
