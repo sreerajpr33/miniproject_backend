@@ -1,6 +1,5 @@
 print('METRO TICKET BOOKING')
 users = []
-
 while True:
     print("\n1. Register\n2. login \n3.exit")
     choice =int(input("Enter your choice: "))
