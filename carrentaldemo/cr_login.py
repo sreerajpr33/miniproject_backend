@@ -1,3 +1,4 @@
+from cr_reg import*
 car=[{'car_plate':'so1','car_name':'bmw','capacity':'2','price':'6000RS'},
     {'car_plate':'so2','car_name':'porsche','capacity':'2','price':'8000RS'}]
 def login():
@@ -48,6 +49,10 @@ def login():
                 for i in car:
                     print("{:<15} {:<15} {:<15} {:<15}".format(i['car_plate'], i['car_name'], i['capacity'], i['price']))
                 print()
-
-
+            elif adch==4:
+                print("{:<15} {:<15} {:<15} {:<15} {:<15}".format('name','email','address','phone','password'))
+                print('_' * 60)
+                for i in user:
+                    print("{:<15} {:<15} {:<15} {:<15} {:<15}".format(i['username'], i['useremail'], i['useraddress'], i['userphone'],i['userpassword']))
+                print()
 

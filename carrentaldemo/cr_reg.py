@@ -1,4 +1,4 @@
-user=[{'username':'sree','useremail':'s.com','useraddress':'tpra','userphone':12345,'userpassword':'asdf'}]    
+user=[{'username':'sree','useremail':'s.com','useraddress':'tpra','userphone':12345,'userpassword':'asdf'}]  
 def register():
     print()
     u_name=input('enter your name :')
