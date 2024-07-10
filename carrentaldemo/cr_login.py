@@ -17,16 +17,16 @@ def login():
                 a_cprice=input('enter the price (per100km) :')
                 print()
 
-                car_exist=False
+                car_exist = False
                 for cars in car:
-                    if cars['car_plate']==a_cplate:
-                        car_exist==True
+                    if cars['car_plate'] == a_cplate:
+                        car_exist = True
                         break
                 if car_exist:
-                    print('REGISTRATION NUMBER OF THE CAR ALREADY EXIST !')
+                    print('REGISTRATION NUMBER OF THE CAR ALREADY EXISTS!')
                 else:
-                    car.append({'car_plate':a_cplate,'car_name':a_cname,'capacity':a_cseat,'price':a_cprice}) 
-                    print('CAR ADDED SUCESSFULLY!')
+                    car.append({'car_plate': a_cplate, 'car_name': a_cname, 'capacity': a_cseat, 'price': a_cprice}) 
+                    print('CAR ADDED SUCCESSFULLY!')
             elif adch==2:
                 print()
                 a_cplate=input('enter the registration number of car you want to remove :')
@@ -55,4 +55,17 @@ def login():
                 for i in user:
                     print("{:<15} {:<15} {:<15} {:<15} {:<15}".format(i['username'], i['useremail'], i['useraddress'], i['userphone'],i['userpassword']))
                 print()
+    else:
+        user_exist = False
+        for users in user:
+            if users['useremail'] == email and users['userpassword'] == password:
+                user_exist = True
+                break
 
+        if user_exist:
+            print('LOGIN SUCCESSFUL!')
+            #viewcar,booking,cancelbookig
+        else:
+            print('LOGIN FAILED!')
+ 
+        
