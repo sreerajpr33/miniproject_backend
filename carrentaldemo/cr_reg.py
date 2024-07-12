@@ -19,6 +19,7 @@ def register():
     else:
         user.append({'username': u_name,'useremail':u_email,'useraddress':u_address,'userphone':u_phone,'userpassword':u_pwd})
         print("Registration successful!")
+        print(user)
 
 
                     
