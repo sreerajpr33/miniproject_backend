@@ -8,8 +8,9 @@ while True:
         register()
     if ch==2:
         login()
-    
-         
+    if ch==3:
+        break
+        
         
 
         

@@ -3,18 +3,18 @@ from cr_reg import*
 
 # Car data
 cars = [
-    {'car_plate': 'so1', 'car_name': 'bmw', 'capacity': '2', 'price': '6000RS', 'category': 'luxury'},
-    {'car_plate': 'so2', 'car_name': 'porsche', 'capacity': '2', 'price': '8000RS', 'category': 'sports'}
+    {'car_plate': 'so1', 'car_name': 'bmw', 'capacity': '2', 'price': '12000', 'category': 'sports'},
+    {'car_plate': 'so2', 'car_name': 'porsche', 'capacity': '2', 'price': '15000', 'category': 'sports'},
+    {'car_plate': 'so3', 'car_name': 'polo', 'capacity': '4', 'price': '3000', 'category': 'sports'},
+    {'car_plate': 'so4', 'car_name': 'innova', 'capacity': '7', 'price': '5000', 'category': 'muv'},
+    {'car_plate': 'so5', 'car_name': 'amg', 'capacity': '7', 'price': '11000', 'category': 'luxury'},
 ]
 
-# Available categories
-categories = ['hatchback', 'sedan', 'suv', 'muv', 'coupe', 'convertible', 'pickup']
+
 
 # Initialize bookings dictionary
 bookings = {}
 
-# Sample user data
-user = [{'username':'sree','useremail':'s.com','useraddress':'tpra','userphone':12345,'userpassword':'asdf'}]
 
 def get_user_input():
     b_car = input('Enter the registration number of the car you need: ')
@@ -37,7 +37,7 @@ def check_booking_exists(b_car, booking_date, bookings):
 def add_booking(b_car, booking_date, bookings):
     if b_car not in bookings:
         bookings[b_car] = []
-    bookings[b_car].append(booking_date)
+    bookings[b_car].append(booking_date)                                    #addbookings
     print(f'Car {b_car} booked successfully for {booking_date}.')
 
 def login():
@@ -48,7 +48,7 @@ def login():
         print('LOGIN SUCCESSFUL!')
         while True:
             print()
-            print('1. Add car\n2. Remove car\n3. View cars\n4. View user details\n5. Category management\n6. View car bookings\n7. Price calculator\n8. Exit')
+            print('1. Add car\n2. Remove car\n3. View cars\n4. View user details\n5. View car bookings\n6. Exit')
             adch = int(input('Enter your choice: '))
             print()
             if adch == 1:
@@ -56,7 +56,7 @@ def login():
                 a_cplate = input('Enter the registration number of the car: ')
                 a_cname = input('Enter the car name: ')
                 a_cseat = int(input('Enter the seat capacity: '))
-                a_cprice = input('Enter the price (per 100 km): ')
+                a_cprice = int(input('Enter the price (per 100 km): '))
                 a_ccategory = input('Enter the category of the car: ')
                 print()
 
@@ -83,48 +83,19 @@ def login():
                 print('_' * 75)
                 for car in cars:
                     print("{:<15} {:<15} {:<15} {:<15} {:<15}".format(car['car_plate'], car['car_name'], car['capacity'], car['price'], car['category']))
-                print()
+                print()           
             elif adch == 4:
                 print("{:<15} {:<15} {:<15} {:<15} {:<15}".format('Name', 'Email', 'Address', 'Phone', 'Password'))
                 print('_' * 60)
                 for u in user:
                     print("{:<15} {:<15} {:<15} {:<15} {:<15}".format(u['username'], u['useremail'], u['useraddress'], u['userphone'], u['userpassword']))
                 print()
+        
             elif adch == 5:
-                while True:
-                    print()
-                    print('1. View categories\n2. Add category\n3. Delete category\n4. Exit')
-                    choice = int(input('Enter your choice: '))
-                    print()
-                    if choice == 1:
-                        for category in categories:
-                            print(category)
-                    elif choice == 2:
-                        n_category = input('Enter new category: ').strip().lower()
-                        if n_category in categories:
-                            print('CATEGORY ALREADY EXISTS!')
-                        else:
-                            categories.append(n_category)
-                            print(f'Category "{n_category}" added successfully!')
-                    elif choice == 3:
-                        d_category = input('Enter category to delete: ').strip().lower()
-                        if d_category in categories:
-                            categories.remove(d_category)
-                            print(f'Category "{d_category}" deleted successfully!')
-                        else:
-                            print('CATEGORY NOT FOUND!')
-                    elif choice == 4:
-                        break
-                    else:
-                        print('INVALID CHOICE!')
-            elif adch == 6:
                 print('Car bookings:')
                 for car_plate, dates in bookings.items():
                     print(f'Car {car_plate}: {dates}')
-            elif adch == 7:
-                # Placeholder for price calculator
-                print('Price calculator not implemented.')
-            elif adch == 8:
+            elif adch == 6:
                 break
             else:
                 print('INVALID CHOICE!')
@@ -136,6 +107,7 @@ def login():
                 print('1. Booking\n2. View bookings\n3. Cancel booking\n4. Exit')
                 uch = int(input('Enter your choice: '))
                 if uch == 1:
+                    # bookings={}
                     print()
                     print("{:<15} {:<15} {:<15} {:<15} {:<15}".format("Reg No", "Car Name", "Seat Capacity", "Price", "Category"))
                     print('_' * 75)
@@ -150,19 +122,20 @@ def login():
                             found = True
                             print()
                             print("{:<15} {:<15} {:<15} {:<15} {:<15}".format(car['car_plate'], car['car_name'], car['capacity'], car['price'], car['category']))
-                            print()
-                            b_car, b_days = get_user_input()
-                            booking_date = validate_date(b_days)
                             
-                            if not check_car_exists(b_car, cars):
-                                print('Car not found.')
-                            elif check_booking_exists(b_car, booking_date, bookings):
-                                print('Car is already booked on this date.')
-                            else:
-                                add_booking(b_car, booking_date, bookings)
-                            print('Current bookings:', bookings)
-                    
-                    if not found:
+
+                    if found:
+                        b_car, b_days = get_user_input()
+                        booking_date = validate_date(b_days)
+
+                        if not check_car_exists(b_car, cars):
+                            print('Car not found.')
+                        elif check_booking_exists(b_car, booking_date, bookings):
+                            print('Car is already booked on this date.')
+                        else:
+                            add_booking(b_car, booking_date, bookings)
+                        print('Current bookings:', bookings)
+                    else:
                         print('NO CARS FOUND IN THIS CATEGORY!')
                 elif uch == 2:
                     print('Current bookings:')
