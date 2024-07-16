@@ -7,7 +7,7 @@ cars = [
     {'car_plate': 'so2', 'car_name': 'porsche', 'capacity': '2', 'price': '15000', 'category': 'sports'},
     {'car_plate': 'so3', 'car_name': 'polo', 'capacity': '4', 'price': '3000', 'category': 'sports'},
     {'car_plate': 'so4', 'car_name': 'innova', 'capacity': '7', 'price': '5000', 'category': 'muv'},
-    {'car_plate': 'so5', 'car_name': 'amg', 'capacity': '7', 'price': '11000', 'category': 'luxury'},
+    {'car_plate': 'so5', 'car_name': 'amg', 'capacity': '4', 'price': '11000', 'category': 'luxury'},
 ]
 
 
