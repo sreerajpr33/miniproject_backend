@@ -10,7 +10,7 @@ def others(up,s_key):
         user_pets = up[key]
         print("{:<15} {:<15} {:<15} {:<15} {:<15} {:<15}".format(key, user_pets[0], user_pets[1], user_pets[2], user_pets[3], user_pets[4]))
         print()
-up={123:[1,'boxer',1,'dog','ekm'],223:[2,'kitty',2,'cat','ekm']}
+up={123:[1,'boxer',3,'dog','ekm'],223:[2,'kitty',2,'cat','ekm']}
 uphone=int(input('ENTER YOUR PHONE NUMBER :'))
 password=input('ENTER YOUR PASSWORD :')
 f=0
@@ -31,9 +31,10 @@ for i in users:
                     up[uphone]=[1,p_name,p_age,p_type,p_place]
                     print('PET ADDED!')
                 else:
-                    new_petid = max(up.keys()) + 1
+                    user_pets=up[uphone]
+                    new_petid = user_pets[0] + 1
                     # pets[new_petid]=[p_name,p_age,p_type,p_place]
-                    up[uphone]=[new_petid,p_name,p_age,p_type,p_place]
+                    up[uphone]=[1,p_name,p_age,p_type,p_place]
                     print('PET ADDED!')
             elif ch == 2:
                 if uphone in up:
@@ -58,7 +59,6 @@ for i in users:
                         # del pets[p_id]
                         del up[uphone]
             if ch == 4:
-                
                 s_key=uphone
                 others(up,s_key)
                 a_pet=int(input('enter the id of pet you want to adopt :'))
@@ -67,17 +67,14 @@ for i in users:
                     if a_pet==values[0]:
                         f=1
                         print('adoption sucessfull!')
-                        
+                        if a_pet in up[uphone]:
+                            up[uphone].remove(a_pet)
+                            if not up[uphone]:
+                                del up[uphone]
+                            break
                     if f==0:
-                        print('invalid id')
-
-
-
-
-
-
-
-                
+                        print('invalid id')    
+                        
             elif ch==5:
                 break    
                 
