@@ -1,5 +1,15 @@
 from reg import*
 # pets={1:['s',2,'d','ekm']}
+def others(up,s_key):
+    for key,values in up.items():
+        if key==uphone:
+            continue
+        print()
+        print("{:<15} {:<15} {:<15} {:<15} {:<15}{:<15}".format("userphone", "pet id", "pet name", "age", "type", "place"))
+        print('_' * 85)
+        user_pets = up[key]
+        print("{:<15} {:<15} {:<15} {:<15} {:<15} {:<15}".format(key, user_pets[0], user_pets[1], user_pets[2], user_pets[3], user_pets[4]))
+        print()
 up={123:[1,'boxer',1,'dog','ekm'],223:[2,'kitty',2,'cat','ekm']}
 uphone=int(input('ENTER YOUR PHONE NUMBER :'))
 password=input('ENTER YOUR PASSWORD :')
@@ -28,8 +38,8 @@ for i in users:
             elif ch == 2:
                 if uphone in up:
                     print()
-                    print("{:<15} {:<15} {:<15} {:<15} {:<15}".format("userphone", "pet id", "pet name", "age", "type", "place"))
-                    print('_' * 75)
+                    print("{:<15} {:<15} {:<15} {:<15} {:<15}{:<15}".format("userphone", "pet id", "pet name", "age", "type", "place"))
+                    print('_' * 85)
                     user_pets = up[uphone]
                     print("{:<15} {:<15} {:<15} {:<15} {:<15} {:<15}".format(uphone, user_pets[0], user_pets[1], user_pets[2], user_pets[3], user_pets[4]))
                     print()
@@ -38,8 +48,8 @@ for i in users:
             elif ch==3:
                 if uphone in up:
                     print()
-                    print("{:<15} {:<15} {:<15} {:<15} {:<15}".format("userphone", "pet id", "pet name", "age", "type", "place"))
-                    print('_' * 75)
+                    print("{:<15} {:<15} {:<15} {:<15} {:<15}{:<15}".format("userphone", "pet id", "pet name", "age", "type", "place"))
+                    print('_' * 85)
                     user_pets = up[uphone]
                     print("{:<15} {:<15} {:<15} {:<15} {:<15} {:<15}".format(uphone, user_pets[0], user_pets[1], user_pets[2], user_pets[3], user_pets[4]))
                     print()
@@ -48,16 +58,26 @@ for i in users:
                         # del pets[p_id]
                         del up[uphone]
             if ch == 4:
-                print()
-                print("{:<15} {:<15} {:<15} {:<15} {:<15} {:<15}".format("userphone", "pet id", "pet name", "age", "type", "place"))
-                print('_' * 75)
-                for uphone1, pet_details in up.items():
-                        if isinstance(pet_details, list) and len(pet_details) == 5:
-                            print("{:<15} {:<15} {:<15} {:<15} {:<15} {:<15}".format(uphone, pet_details[0], pet_details[1], pet_details[2], pet_details[3], pet_details[4]))
-                        else:
-                            print(f"Data format error for phone: {uphone}")
-                        print()
+                
+                s_key=uphone
+                others(up,s_key)
+                a_pet=int(input('enter the id of pet you want to adopt :'))
+                b=0
+                for keys,values in up.items():
+                    if a_pet==values[0]:
+                        f=1
+                        print('adoption sucessfull!')
+                        
+                    if f==0:
+                        print('invalid id')
 
+
+
+
+
+
+
+                
             elif ch==5:
                 break    
                 
