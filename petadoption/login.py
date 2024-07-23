@@ -1,82 +1,81 @@
-from reg import*
-# pets={1:['s',2,'d','ekm']}
-def others(up,s_key):
-    for key,values in up.items():
-        if key==uphone:
-            continue
-        print()
-        print("{:<15} {:<15} {:<15} {:<15} {:<15}{:<15}".format("userphone", "pet id", "pet name", "age", "type", "place"))
-        print('_' * 85)
-        user_pets = up[key]
-        print("{:<15} {:<15} {:<15} {:<15} {:<15} {:<15}".format(key, user_pets[0], user_pets[1], user_pets[2], user_pets[3], user_pets[4]))
-        print()
-up={123:[1,'boxer',3,'dog','ekm'],223:[2,'kitty',2,'cat','ekm']}
-uphone=int(input('ENTER YOUR PHONE NUMBER :'))
-password=input('ENTER YOUR PASSWORD :')
-f=0
-for i in users:
-    if i['phone'] == uphone and i['password']==password :
-        f=1
-        print('LOGIN SUCESSFULL!')
-        while True:
-            print('1.add pets\n2.view added pets\n3.delete added pets\n4.adopt\n5.exit')
-            ch=int(input('ENTER YOUR CHOICE :'))
-            if ch==1:
-                p_name=input('ENTER PET NAME :')
-                p_age=int(input('HOW OLD IS YOUR PET :'))
-                p_type=input('ENTER THE TYPE :')
-                p_place=input('PLACE :')
-                if not up:
-                    # pets[1]=[p_name,p_age,p_type,p_place]
-                    up[uphone]=[1,p_name,p_age,p_type,p_place]
-                    print('PET ADDED!')
-                else:
-                    user_pets=up[uphone]
-                    new_petid = user_pets[0] + 1
-                    # pets[new_petid]=[p_name,p_age,p_type,p_place]
-                    up[uphone]=[1,p_name,p_age,p_type,p_place]
-                    print('PET ADDED!')
-            elif ch == 2:
-                if uphone in up:
-                    print()
-                    print("{:<15} {:<15} {:<15} {:<15} {:<15}{:<15}".format("userphone", "pet id", "pet name", "age", "type", "place"))
-                    print('_' * 85)
+from reg import*  # Assuming users is a list of dictionaries with user data
+def login():
+    up = {123: [[1, 's', 2, 'd', 'e']],
+            223:[[2,'d',1,'f','s']]}
+    uphone = int(input('ENTER YOUR PHONE NUMBER: '))
+    password = input('ENTER YOUR PASSWORD: ')
+    f = 0
+    def others(up, s_key):
+        for key, values in up.items():
+            if key == s_key:
+                continue
+            print()
+            print("{:<15} {:<15} {:<15} {:<15} {:<15} {:<15}".format("User Phone", "Pet ID", "Pet Name", "Age", "Type", "Place"))
+            print('_' * 85)
+            for pet in values:
+                print("{:<15} {:<15} {:<15} {:<15} {:<15} {:<15}".format(key, pet[0], pet[1], pet[2], pet[3], pet[4]))
+            print()
+
+    for i in users:
+        if i['phone'] == uphone and i['password'] == password:
+            f = 1
+            print('LOGIN SUCCESSFUL!')
+            while True:
+                print('1. Add pets\n2. View added pets\n3. Delete added pets\n4. Adopt\n5. Exit')
+                ch = int(input('ENTER YOUR CHOICE: '))
+                if ch == 1:
+                    p_name = input('ENTER PET NAME: ')
+                    p_age = int(input('HOW OLD IS YOUR PET: '))
+                    p_type = input('ENTER THE TYPE: ')
+                    p_place = input('PLACE: ')
+
+                    if uphone not in up:
+                        up[uphone] = []
+
                     user_pets = up[uphone]
-                    print("{:<15} {:<15} {:<15} {:<15} {:<15} {:<15}".format(uphone, user_pets[0], user_pets[1], user_pets[2], user_pets[3], user_pets[4]))
-                    print()
-                else:
-                    print("No pets found for this phone number.") 
-            elif ch==3:
-                if uphone in up:
-                    print()
-                    print("{:<15} {:<15} {:<15} {:<15} {:<15}{:<15}".format("userphone", "pet id", "pet name", "age", "type", "place"))
-                    print('_' * 85)
-                    user_pets = up[uphone]
-                    print("{:<15} {:<15} {:<15} {:<15} {:<15} {:<15}".format(uphone, user_pets[0], user_pets[1], user_pets[2], user_pets[3], user_pets[4]))
-                    print()
-                    p_id=int(input('ENTER THE PET ID YOU WANT TO DELETE :'))
-                    if p_id==user_pets[0]:
-                        # del pets[p_id]
-                        del up[uphone]
-            if ch == 4:
-                s_key=uphone
-                others(up,s_key)
-                a_pet=int(input('enter the id of pet you want to adopt :'))
-                b=0
-                for keys,values in up.items():
-                    if a_pet==values[0]:
-                        f=1
-                        print('adoption sucessfull!')
-                        if a_pet in up[uphone]:
-                            up[uphone].remove(a_pet)
-                            if not up[uphone]:
-                                del up[uphone]
+                    pet_id = len(user_pets) + 1
+                    user_pets.append([pet_id, p_name, p_age, p_type, p_place])
+                    up[uphone] = user_pets
+                    print('PET ADDED!')
+                    print(up)
+                elif ch == 2:
+                    if uphone in up:
+                        for pet in up[uphone]:
+                            print(pet)
+                    else:
+                        print('No pets added yet.')
+                elif ch == 3:
+                    if uphone in up:
+                        pet_delet = int(input('Enter the pet ID to delete: '))
+                        user_pets = up[uphone]
+                        up[uphone] = [pet for pet in user_pets if pet[0] != pet_delet]
+                        print('PET DELETED!')
+                elif ch == 4:
+                    others(up, uphone)
+                    adoptpet_id = int(input('Enter the ID of the pet you want to adopt: '))
+                    pet_found = False
+                    for owner_phone, pets in up.items():
+                        if owner_phone == uphone:
+                            continue
+                        for pet in pets:
+                            if pet[0] == adoptpet_id:
+                                pet_found = True
+                                print('Adoption successful!')
+                                if uphone not in up:
+                                    up[uphone] = []
+                                up[uphone].append(pet)
+                                pets.remove(pet)
+                                if not pets:
+                                    del up[owner_phone]
+                                break
+                        if pet_found:
                             break
-                    if f==0:
-                        print('invalid id')    
-                        
-            elif ch==5:
-                break    
-                
-if f==0:
-    print('INVALID PHONENUMBER OR PASSWORD!')
+                    if not pet_found:
+                        print('Invalid pet ID.')  
+                elif ch==5: 
+                    print('exiting!')
+                    break
+                else:
+                    print('INVALID CHOICE!' )
+        else:
+            print('INVALID PHONENUMBER OR PASSWORD!')
