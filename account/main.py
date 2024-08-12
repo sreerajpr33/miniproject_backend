@@ -1,42 +1,82 @@
-import  random
+import random
 import hashlib
-accounts=[]
+import os
+
+accounts = []
+
 while True:
-    print("1.create account\n2.login to account")
-    choice=int(input('enter your choice :'))
-    if choice==1:
-        name=input('enter your name :')
-        pin=input('enter your pin :')
-        balance=0
+    print("1. Create account\n2. Login to account\n3. Exit")
+    choice = int(input('Enter your choice: '))
+
+    if choice == 1:
+        name = input('Enter your name: ')
+        pin = input('Enter your pin: ')
+        balance = 0
+
+        
         pin_bytes = pin.encode()
         hashed_pin = hashlib.sha256(pin_bytes).hexdigest()
-        account_number= random.randint(100000,999999)
-        if account_number not in accounts:
-            accounts={"accountnumber":account_number,"name":name,"balance":balance,"password":hashed_pin}
-            f=open(f"miniproject_backend/account/{account_number}.txt",'x')
-            f.write(f"details : {accounts}")
-            print(accounts)
-        print(f"your account number is {account_number}")
-    elif choice==2:
-        acc_no=int(input('enter account no :'))
-        f=0
-        for i in accounts :
-            if acc_no == i['accountnumber']: 
-                f=1
-                pinno=input('enter the pin :')
-                pinbytes = pinno.encode()
-                hash_pin = hashlib.sha256(pinbytes).hexdigest()
-                for i in accounts:
-                    q=0
-                    if hash_pin==i['password']:
-                        q=1
-                        print('login sucessfull!')
-                    if q==0:
-                        print('incorrect pin ')
-            if f==0:
-                print('wrong account number!')
-    elif choice==3:
-        print('exiting...!')
+
+        
+        account_number = random.randint(100000, 999999)
+
+        while any(account["accountnumber"] == account_number for account in accounts):
+            account_number = random.randint(100000, 999999)
+
+        account = {"accountnumber": account_number, "name": name, "balance": balance, "password": hashed_pin}
+
+        accounts.append(account)
+
+        with open(f"miniproject_backend/account/{account_number}.txt", 'w') as f:
+            f.write(str(account))
+
+        print(f"Your account has been created. Account number: {account_number}")
+
+    elif choice == 2:
+        account_number = input('Enter your account number: ')
+        file_path = f"miniproject_backend/account/{account_number}.txt"
+
+        if os.path.exists(file_path):
+            with open(file_path, 'r') as f:
+                account_data = f.read()
+                account = eval(account_data)  # Convert the string back to a dictionary
+
+            pin = input('Enter your pin: ')
+            pin_bytes = pin.encode()
+            hashed_pin = hashlib.sha256(pin_bytes).hexdigest()
+
+            if hashed_pin == account['password']:
+                print("Login successful!")
+                print(f"Welcome {account['name']}")
+                print("1. Deposit\n2. Withdraw")
+                ch = int(input('Enter your choice: '))
+
+                if ch == 1:  # Deposit
+                    amount = int(input('Enter the deposit amount: '))
+                    account['balance'] += amount
+                    print(f"${amount} deposited successfully. New balance: ${account['balance']}")
+                    
+                    with open(file_path, 'w') as f:
+                        f.write(str(account))
+
+                elif ch == 2:  # Withdraw
+                    amount = int(input('Enter the withdrawal amount: '))
+                    if amount <= account['balance']:
+                        account['balance'] -= amount
+                        print(f"${amount} withdrawn successfully. New balance: ${account['balance']}")
+                        
+                        with open(file_path, 'w') as f:
+                            f.write(str(account))
+                    else:
+                        print("Insufficient balance.")
+            else:
+                print("Incorrect password.")
+        else:
+            print("Account not found.")
+
+    elif choice == 3:
+        print('Exiting...!')
         break
+
     else:
-        print('invalid choice....!')
+        print('Invalid choice....!')
